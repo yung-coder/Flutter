@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-
 void main() {
   runApp(const MyApp());
+}
+
+enum AnimalType { cat , dog , bunny}
+
+void test(AnimalType animalType) {
+  print(animalType);
 }
 
 class MyApp extends StatelessWidget {
@@ -10,6 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    test(AnimalType.cat);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -120,14 +126,13 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _decrementCounter,
         tooltip: 'Decrement',
         child: const Icon(Icons.minimize),
-      ), 
+      ),
 
       // floatingActionButton: FloatingActionButton(
       //   onPressed: _incrementCounter,
       //   tooltip: 'Increment',
       //   child: const Icon(Icons.add),
       // ),
-      
 
       // This trailing comma makes auto-formatting nicer for build methods.
     );

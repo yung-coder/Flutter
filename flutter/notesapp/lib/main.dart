@@ -46,11 +46,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Register')),
       body: FutureBuilder(
-        builder: (context, snapshot) => {
-          
-        },
-        child: Column(
-          children: [
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: (context, snapshot) {
+          return Column(children: [
             TextField(
               controller: _email,
               enableSuggestions: false,
@@ -63,24 +63,22 @@ class _HomePageState extends State<HomePage> {
               obscureText: true,
               enableSuggestions: false,
               autocorrect: false,
-              decoration: const InputDecoration(hintText: "Enter your password"),
+              decoration:
+                  const InputDecoration(hintText: "Enter your password"),
             ),
             TextButton(
                 onPressed: () async {
-                  await Firebase.initializeApp(
-                    options: DefaultFirebaseOptions.currentPlatform,
-                  );
                   final email = _email.text;
                   final password = _password.text;
                   final userCreds = await FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                           email: email, password: password);
-      
+
                   print(userCreds);
                 },
                 child: const Text('Register')),
-          ],
-        ),
+          ]);
+        },
       ),
     );
   }

@@ -10,10 +10,153 @@ class UnableToGetDocumentDirectory implements Exception {}
 
 class DatabaseIsNotOpen implements Exception {}
 
+class CouldNotDeletUser implements Exception {}
+
+class UserAlreadyExists implements Exception {}
+
+class CouldNotFindUser implements Exception {}
+
+class CouldNotDeleteNote implements Exception {}
+
+class CouldNotFindNote implements Exception {}
+
+class CouldNotUpdateNote implements Exception {}
+
 class NotesService {
   Database? _db;
 
-  
+  Future<DatabaseNote> updateNote(
+      {required DatabaseNote note, required String text}) async {
+    final db = _getDatabaseOrThrow();
+
+    await getNote(id: note.id);
+
+    final updatesCount = await db.update(noteTable, {
+      textColumn: text,
+    });
+
+    if (updatesCount == 0) {
+      throw CouldNotUpdateNote();
+    } else {
+      return await getNote(id: note.id);
+    }
+  }
+
+  Future<Iterable<DatabaseNote>> getALlNotes() async {
+    final db = _getDatabaseOrThrow();
+    final notes = await db.query(noteTable);
+
+    return notes.map((noteRow) => DatabaseNote.fromRow(noteRow));
+  }
+
+  Future<DatabaseNote> getNote({required int id}) async {
+    final db = _getDatabaseOrThrow();
+    final notes = await db.query(
+      noteTable,
+      limit: 1,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (notes.isEmpty) {
+      throw CouldNotFindNote();
+    } else {
+      return DatabaseNote.fromRow(notes.first);
+    }
+  }
+
+  Future<int> deletAllNotes() async {
+    final db = _getDatabaseOrThrow();
+    return db.delete(noteTable);
+  }
+
+  Future<void> deleteNote({required int id}) async {
+    final db = _getDatabaseOrThrow();
+    final deleteCount = await db.delete(
+      noteTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (deleteCount == 0) {
+      throw CouldNotDeleteNote();
+    }
+  }
+
+  Future<DatabaseNote> createNote({required DatabaseUser owner}) async {
+    final db = _getDatabaseOrThrow();
+
+    final dbUser = await getUser(email: owner.email);
+
+    if (dbUser != owner) {
+      throw CouldNotFindUser();
+    }
+
+    const text = '';
+    final noteId = await db.insert(noteTable, {
+      userIdColumn: owner.id,
+      textColumn: text,
+    });
+
+    final note = DatabaseNote(
+      id: noteId,
+      userId: owner.id,
+      content: text,
+    );
+
+    return note;
+  }
+
+  Future<DatabaseUser> getUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    final results = await db.query(
+      userTable,
+      limit: 1,
+      where: 'email =?',
+      whereArgs: [email.toLowerCase()],
+    );
+
+    if (results.isEmpty) {
+      throw CouldNotFindUser();
+    } else {
+      return DatabaseUser.fromRow(results.first);
+    }
+  }
+
+  Future<DatabaseUser> createUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    final results = await db.query(
+      userTable,
+      limit: 1,
+      where: 'email =?',
+      whereArgs: [email.toLowerCase()],
+    );
+
+    if (results.isNotEmpty) {
+      throw UserAlreadyExists();
+    }
+
+    final userId = await db.insert(userTable, {
+      emailColumn: email.toLowerCase(),
+    });
+
+    return DatabaseUser(
+      id: userId,
+      email: email,
+    );
+  }
+
+  Future<void> deletUser({required String email}) async {
+    final db = _getDatabaseOrThrow();
+    final deletedCount = await db.delete(
+      userTable,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+
+    if (deletedCount != 1) {
+      throw CouldNotDeletUser();
+    }
+  }
 
   Database _getDatabaseOrThrow() {
     final db = _db;

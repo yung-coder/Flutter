@@ -238,6 +238,7 @@ class NotesService {
     try {
       final docsPath = await getApplicationDocumentsDirectory();
       final dbPath = join(docsPath.path, dbName);
+      print(dbPath);
       final db = await openDatabase(dbPath);
       _db = db;
 
@@ -297,22 +298,23 @@ class DatabaseNote {
   int get hashCode => id.hashCode;
 }
 
-const dbName = 'notes.db';
+const dbName = 'dummy.db';
 const noteTable = 'note';
 const userTable = 'user';
 const idColumn = "id";
 const emailColumn = 'email';
 const userIdColumn = 'user_id';
 const textColumn = 'content';
-const createUserTable = '''CREATE TABLE if not EXISTS "user" (
-	"id"	INTEGER,
-	"email"	TEXT
-); ''';
+const createUserTable = '''CREATE TABLE IF NOT EXISTS "user" (
+        "id"	INTEGER NOT NULL,
+         "email"	TEXT NOT NULL UNIQUE,
+        PRIMARY KEY("id" AUTOINCREMENT)
+       );''';
 
 const createNoteTable = '''CREATE TABLE if NOT EXISTS "note" (
-	"id"	INT NOT NULL,
-	"user_id"	INT,
+	"id"	INTEGER  NOT NULL,
+	"user_id"	INTEGER NOT NULL,
 	"content"	TEXT,
 	FOREIGN KEY("user_id") REFERENCES "user"("id"),
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 ); ''';

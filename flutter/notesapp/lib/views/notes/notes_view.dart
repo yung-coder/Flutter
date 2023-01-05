@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:notesapp/constants/routes.dart';
 import 'package:notesapp/enums/menu_action.dart';
@@ -72,7 +74,10 @@ class _NotesViewState extends State<NotesView> {
                         return ListView.builder(
                           itemCount: allNotes.length,
                           itemBuilder: (context, index) {
-                            return const Text('Item');
+                            final note = allNotes[index];
+                            return ListTile(
+                              title: Text(note.content),
+                            );
                           },
                         );
                       } else {

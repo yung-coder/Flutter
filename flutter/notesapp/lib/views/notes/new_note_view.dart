@@ -82,7 +82,7 @@ class _NewNotesViewState extends State<NewNotesView> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              _note = snapshot.data; // as Database user giving error
+              _note = snapshot.data as DatabaseNote;
               _setupTextControllerListner();
               return TextField(
                 controller: _textController,

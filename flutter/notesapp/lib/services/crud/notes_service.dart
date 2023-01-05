@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,17 @@ class NotesService {
   List<DatabaseNote> _notes = [];
 
   static final NotesService _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: () {
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
 
   factory NotesService() => _shared;
 
-  final _notesStreamController =
-      StreamController<List<DatabaseNote>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
 
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
@@ -291,7 +297,7 @@ class DatabaseNote {
   int get hashCode => id.hashCode;
 }
 
-const dbName = 'test.db';
+const dbName = 'notes.db';
 const noteTable = 'note';
 const userTable = 'user';
 const idColumn = "id";
@@ -303,7 +309,7 @@ const createUserTable = '''CREATE TABLE if not EXISTS "user" (
 	"email"	TEXT
 ); ''';
 
-const createNoteTable = '''CREATE TABLE "note" (
+const createNoteTable = '''CREATE TABLE if NOT EXISTS "note" (
 	"id"	INT NOT NULL,
 	"user_id"	INT,
 	"content"	TEXT,

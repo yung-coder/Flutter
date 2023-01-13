@@ -5,6 +5,8 @@ import 'package:notesapp/constants/routes.dart';
 import 'package:notesapp/enums/menu_action.dart';
 import 'package:notesapp/services/auth/auth_service.dart';
 import 'package:notesapp/services/crud/notes_service.dart';
+import 'package:notesapp/utils/dialog/logout_dialog.dart';
+import 'package:notesapp/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -71,13 +73,10 @@ class _NotesViewState extends State<NotesView> {
                     case ConnectionState.active:
                       if (snapshot.hasData) {
                         final allNotes = snapshot.data as List<DatabaseNote>;
-                        return ListView.builder(
-                          itemCount: allNotes.length,
-                          itemBuilder: (context, index) {
-                            final note = allNotes[index];
-                            return ListTile(
-                              title: Text(note.content),
-                            );
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeletNote: (note) async {
+                            await _notesService.deleteNote(id: note.id);
                           },
                         );
                       } else {
@@ -95,28 +94,4 @@ class _NotesViewState extends State<NotesView> {
       ),
     );
   }
-}
-
-Future<bool> showLogOutDialog(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Sign out'),
-        content: const Text('Are u sure u want to sign out'),
-        actions: [
-          TextButton(
-              onPressed: (() {
-                Navigator.of(context).pop(false);
-              }),
-              child: const Text('Cancel')),
-          TextButton(
-              onPressed: (() {
-                Navigator.of(context).pop(true);
-              }),
-              child: const Text('Log out')),
-        ],
-      );
-    },
-  ).then((value) => value ?? false);
 }

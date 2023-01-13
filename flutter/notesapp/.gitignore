@@ -58,3 +58,11 @@ app.*.map.json
 # Linux
 **/linux/flutter/generated_plugin_registrant.cc
 **/linux/flutter/generated_plugin_registrant.h
+
+
+/linux
+/macos
+/web
+/windows
+/android
+/ios

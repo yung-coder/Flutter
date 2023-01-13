@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
+            const Icon(
               Icons.menu,
               color: tdBlack,
               size: 30,
@@ -34,15 +34,15 @@ class Home extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
-                child: TextField(
+                child: const TextField(
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(0),
                     prefixIcon: Icon(

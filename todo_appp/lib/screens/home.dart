@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:todo_appp/constants/color.dart';
+import 'package:todo_appp/widgets/todo_item.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -58,6 +59,30 @@ class Home extends StatelessWidget {
                     hintText: 'Search',
                     hintStyle: TextStyle(color: tdGrey),
                   ),
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 5,
+                        bottom: 20,
+                      ),
+                      child: const Text(
+                        'All todos',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    TodoItem(),
+                    TodoItem(),
+                    TodoItem(),
+                    TodoItem(),
+                    TodoItem(),
+                  ],
                 ),
               )
             ],

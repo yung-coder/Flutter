@@ -3,10 +3,16 @@ import 'package:todo_appp/constants/color.dart';
 import 'package:todo_appp/model/todo.dart';
 import 'package:todo_appp/widgets/todo_item.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final todoList = Todo.todoList();
+  final _todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +88,8 @@ class Home extends StatelessWidget {
                       for (Todo todo in todoList)
                         TodoItem(
                           todo: todo,
+                          onTodoChange: _handleTodoChange,
+                          onDeletItem: _deletItem,
                         ),
                     ],
                   ),
@@ -115,6 +123,7 @@ class Home extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
+                    controller: _todoController,
                     decoration: InputDecoration(
                       hintText: 'Add a new todo',
                       border: InputBorder.none,
@@ -132,7 +141,9 @@ class Home extends StatelessWidget {
                     '+',
                     style: TextStyle(fontSize: 40),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _addTodoItem(_todoController.text);
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: tdBlue,
                     minimumSize: Size(60, 60),
@@ -145,5 +156,25 @@ class Home extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  void _handleTodoChange(Todo todo) {
+    setState(() {
+      todo.isDone = !todo.isDone;
+    });
+  }
+
+  void _deletItem(String id) {
+    setState(() {
+      todoList.removeWhere((item) => item.id == id);
+    });
+  }
+
+  void _addTodoItem(String todo) {
+    setState(() {
+      todoList
+          .add(Todo(id: DateTime.now().millisecond.toString(), todoText: todo));
+    });
+    _todoController.clear();
   }
 }

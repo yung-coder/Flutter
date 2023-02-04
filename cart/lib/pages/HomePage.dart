@@ -1,3 +1,4 @@
+import 'package:cart/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
           child: Text("Welcome to $days of flutter $name"),
         ),
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
     );
   }
 }

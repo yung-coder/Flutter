@@ -14,6 +14,18 @@ class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool changeButton = false;
 
+  final _formKey = GlobalKey<FormState>();
+
+  moveToHome(BuildContext) async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      Navigator.pushNamed(context, MyRoutes.HomeRoute);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -38,72 +50,71 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: "Enter username",
-                      labelText: "Username",
-                    ),
-                    onChanged: (value) {
-                      name = value;
-                      setState(() {});
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: "Enter password",
-                      labelText: "password",
-                    ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 40.0,
-                  ),
-                  InkWell(
-                      onTap: () async {
-                        setState(() {
-                          changeButton = true;
-                        });
-                        await Future.delayed(Duration(seconds: 1));
-                        Navigator.pushNamed(context, MyRoutes.HomeRoute);
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: "Enter username",
+                        labelText: "Username",
+                      ),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
                       },
-                      child: AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        width: changeButton ? 50 : 100,
-                        height: 40,
-                        alignment: Alignment.center,
-                        child: changeButton
-                            ? Icon(
-                                Icons.done,
-                                color: Colors.white,
-                              )
-                            : Text(
-                                "Login",
-                                style: TextStyle(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "User name cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: "Enter password",
+                        labelText: "password",
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Password name cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    Material(
+                      color: Colors.amber,
+                      borderRadius:
+                          BorderRadius.circular(changeButton ? 50 : 8),
+                      child: InkWell(
+                          onTap: () => moveToHome(context),
+                          child: AnimatedContainer(
+                            duration: Duration(seconds: 1),
+                            width: changeButton ? 50 : 100,
+                            height: 40,
+                            alignment: Alignment.center,
+                            child: changeButton
+                                ? Icon(
+                                    Icons.done,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          // shape: changeButton
-                          //     ? BoxShape.circle
-                          //     : BoxShape.rectangle,
-                          borderRadius:
-                              BorderRadius.circular(changeButton ? 50 : 8),
-                        ),
-                      )),
-                  // ElevatedButton(
-                  //   style: TextButton.styleFrom(
-                  //     minimumSize: const Size(100, 40),
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, MyRoutes.HomeRoute);
-                  //   },
-                  //   child: const Text("Login"),
-                  // )
-                ],
+                                  )
+                                : Text(
+                                    "Login",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                          )),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

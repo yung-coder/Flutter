@@ -71,11 +71,14 @@ class HomeDetailPage extends StatelessWidget {
                           .xl
                           .make(),
                       10.heightBox,
-                      "Ipsum sadipscing et sed voluptua stet sit. Lorem sed stet ipsum elitr invidunt, no ea dolor et tempor dolore et stet at. Diam dolore lorem diam invidunt sed sadipscing et, eos dolore sit dolor consetetur dolor justo. Eirmod amet lorem dolor ea dolor, aliquyam labore ut at nonumy takimata ea."
-                          .text
-                          .textStyle(context.captionStyle)
-                          .make()
-                          .p12()
+                      Center(
+                        child:
+                            "Ipsum sadipscing et sed voluptua stet sit. Lorem sed stet ipsum elitr invidunt, no ea dolor et tempor dolore et stet at. Diam dolore lorem diam invidunt sed sadipscing et, eos dolore sit dolor consetetur dolor justo. Eirmod amet lorem dolor ea dolor, aliquyam labore ut sasdss"
+                                .text
+                                .textStyle(context.captionStyle)
+                                .make()
+                                .p12(),
+                      )
                     ],
                   ).py64(),
                 ),

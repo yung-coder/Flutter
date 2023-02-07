@@ -67,7 +67,7 @@ class CatalogItem extends StatelessWidget {
                           StadiumBorder(),
                         )),
                     child: const Text(
-                      "Buy",
+                      "Add to cart",
                       style: TextStyle(color: Colors.white),
                     ),
                   )

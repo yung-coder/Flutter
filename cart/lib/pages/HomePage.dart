@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CataLogHeader(),
                 if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-                  CatalogList().expand()
+                  CatalogList().py16().expand()
                 else
                   Center(
                     child: CircularProgressIndicator().py16(),

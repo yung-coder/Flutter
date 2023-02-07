@@ -1,6 +1,6 @@
 import 'package:cart/models/catalog.dart';
-import 'package:cart/pages/Home_Widgets/catalog_header.dart';
-import 'package:cart/pages/Home_Widgets/catalog_list.dart';
+import 'package:cart/widgets/Home_Widgets/catalog_header.dart';
+import 'package:cart/widgets/Home_Widgets/catalog_list.dart';
 import 'package:cart/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -9,7 +9,7 @@ class MyThemes {
       cardColor: Colors.white,
       canvasColor: creamColor,
       buttonColor: darkBluishColor,
-        accentColor: darkBluishColor,
+      accentColor: darkBluishColor,
       appBarTheme: AppBarTheme(
         color: Colors.white,
         elevation: 0.0,
@@ -18,7 +18,7 @@ class MyThemes {
       ));
 
   static ThemeData darkTheme(BuildContext context) => ThemeData(
-     brightness: Brightness.dark,
+      brightness: Brightness.dark,
       primarySwatch: Colors.amber,
       fontFamily: GoogleFonts.lato().fontFamily,
       cardColor: Colors.black,
@@ -29,7 +29,9 @@ class MyThemes {
         color: Colors.black,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.white),
-        textTheme: Theme.of(context).textTheme,
+        textTheme: Theme.of(context).textTheme.copyWith(
+            headline6:
+                context.textTheme.headline6!.copyWith(color: Colors.white)),
       ));
 
   static Color creamColor = Color(0xfff5f5f5);

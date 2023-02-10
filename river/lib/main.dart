@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river/Pages/home_page.dart';
 
+final nameProvider = Provider((ref) => "Chad");
+
 void main() {
   runApp(const ProviderScope(child: const MyApp()));
 }
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: "Hey"),
+      home: MyHomePage(),
     );
   }
 }

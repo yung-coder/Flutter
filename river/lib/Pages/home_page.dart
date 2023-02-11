@@ -11,6 +11,9 @@ class MyHomePage extends ConsumerWidget {
     // final name = ref.watch(nameProvider) ?? '';
 
     final user = ref.watch(userProvider) as User;
+
+    // specfic rerun of widget on a value
+    // final user = ref.watch(userProvider.select((value) => value.name));
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -30,6 +33,7 @@ class MyHomePage extends ConsumerWidget {
               children: [
                 Text(user.name),
                 Text(user.age.toString()),
+                // Text(user.toString())
               ],
             ),
           )

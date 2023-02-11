@@ -30,6 +30,7 @@ final fetchUserProvider = FutureProvider((ref) {
   return userRepositry.fetchUserData();
 });
 
+// stream builder 
 
 final streamProvider = StreamProvider((ref) async* {
   yield [1,2,3,4,5,6,7,8,9,10];

@@ -26,8 +26,8 @@ final userChangeNotifierProvider =
 // Future Providers
 
 final fetchUserProvider = FutureProvider((ref) {
-  const url = 'https://jsonplaceholder.typicode.com/users/1';
-  return http.get(Uri.parse(url)).then((value) => UserE.fromJson(value.body));
+  final userRepositry = ref.watch(UserRepositryProvider);
+  return userRepositry.fetchUserData();
 });
 
 void main() {

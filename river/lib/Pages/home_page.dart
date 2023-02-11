@@ -7,11 +7,17 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(nameProvider);
+    final name = ref.watch(nameProvider) ?? '';
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
+          TextField(
+            onSubmitted: (value) {
+              final name =
+                  ref.read(nameProvider.notifier).update((state) => value);
+            },
+          ),
           Center(
             child: Text(name),
           )

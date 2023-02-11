@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:river/Pages/user.dart';
 import 'package:river/main.dart';
 
 class MyHomePage extends ConsumerWidget {
@@ -7,19 +8,30 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(nameProvider) ?? '';
+    // final name = ref.watch(nameProvider) ?? '';
+
+    final user = ref.watch(userProvider) as User;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
           TextField(
             onSubmitted: (value) {
-              final name =
-                  ref.read(nameProvider.notifier).update((state) => value);
+              ref.read(userProvider.notifier).updateName(value);
+            },
+          ),
+          TextField(
+            onSubmitted: (value) {
+              ref.read(userProvider.notifier).updateAge(int.parse(value));
             },
           ),
           Center(
-            child: Text(name),
+            child: Column(
+              children: [
+                Text(user.name),
+                Text(user.age.toString()),
+              ],
+            ),
           )
         ],
       ),

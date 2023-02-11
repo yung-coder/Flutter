@@ -25,15 +25,15 @@ final userChangeNotifierProvider =
 
 // Future Providers
 
-final fetchUserProvider = FutureProvider((ref) {
+final fetchUserProvider = FutureProvider.family((ref, String input) {
   final userRepositry = ref.watch(UserRepositryProvider);
-  return userRepositry.fetchUserData();
+  return userRepositry.fetchUserData(input);
 });
 
-// stream builder 
+// stream builder
 
 final streamProvider = StreamProvider((ref) async* {
-  yield [1,2,3,4,5,6,7,8,9,10];
+  yield [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 });
 
 void main() {
@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyWidget(),
+      home: MyStateHome()
+      ,
     );
   }
 }

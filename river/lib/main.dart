@@ -10,10 +10,15 @@ import 'package:river/Pages/user.dart';
 
 // final nameProvider = StateProvider<String?>((ref) => null);
 
-// stateNotifier and StateNotifierProvider
+// stateNotifier and StateNotifierProvider --- main one
 
-final userProvider = StateNotifierProvider<UserNotifier, User>(
-    (ref) => UserNotifier());
+final userProvider =
+    StateNotifierProvider<UserNotifier, User>((ref) => UserNotifier());
+
+// changeNotifierProvider -- mutable not good!
+
+final userChangeNotifierProvider =
+    ChangeNotifierProvider((ref) => UserNotifierChange());
 
 void main() {
   runApp(const ProviderScope(child: const MyApp()));

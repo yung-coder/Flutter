@@ -25,7 +25,8 @@ final userChangeNotifierProvider =
 
 // Future Providers
 
-final fetchUserProvider = FutureProvider.family((ref, String input) {
+final fetchUserProvider =
+    FutureProvider.family.autoDispose((ref, String input) {
   final userRepositry = ref.watch(UserRepositryProvider);
   return userRepositry.fetchUserData(input);
 });
@@ -51,8 +52,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyStateHome()
-      ,
+      home: MyStateHome(),
     );
   }
 }

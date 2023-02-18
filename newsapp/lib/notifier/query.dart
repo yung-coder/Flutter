@@ -48,8 +48,8 @@ class Query {
   int get hashCode => q.hashCode;
 }
 
-class queryNoifier extends StateNotifier<Query> {
-  queryNoifier() : super(Query(q: ''));
+class QueryNoifier extends StateNotifier<Query> {
+  QueryNoifier() : super(Query(q: ''));
 
   void updatequery(String n) {
     state = state.copyWith(q: n);

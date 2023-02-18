@@ -6,10 +6,10 @@ import 'package:newsapp/model/Article.dart';
 import 'package:newsapp/notifier/query.dart';
 
 final queryProvider =
-    StateNotifierProvider<queryNoifier, Query>((ref) => queryNoifier());
+    StateNotifierProvider<QueryNoifier, Query>((ref) => QueryNoifier());
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

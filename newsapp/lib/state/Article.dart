@@ -103,7 +103,7 @@ class Article {
 }
 
 class ArticleNotifier extends StateNotifier<Article> {
-  ArticleNotifier()
+  ArticleNotifier(Article article)
       : super(Article(
             author: '',
             title: '',
@@ -113,7 +113,27 @@ class ArticleNotifier extends StateNotifier<Article> {
             publishedAt: '',
             content: ' '));
 
-  void updateName(String n) {
-    state = state.copyWith();
+  void updateState(Article article) {
+    state = state.copyWith(
+        author: article.author,
+        title: article.title,
+        description: article.description,
+        url: article.url,
+        urlToImage: article.urlToImage,
+        publishedAt: article.publishedAt,
+        content: article.author);
   }
 }
+
+final ArticlesProvider = StateNotifierProvider(
+  (ref) => ArticleNotifier(
+    Article(
+        author: '',
+        title: '',
+        description: ' ',
+        url: ' ',
+        urlToImage: ' ',
+        publishedAt: ' ',
+        content: ' '),
+  ),
+);

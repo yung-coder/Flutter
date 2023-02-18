@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:newsapp/state/Article.dart';
+import 'package:newsapp/model/Article.dart';
 
 class ApiService {
   static const url =

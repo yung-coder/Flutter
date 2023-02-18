@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:newsapp/model/Article.dart';
 
 class ApiService {
-  static const url =
-      'https://newsapi.org/v2/top-headlines?country=us&apiKey=1ea09f8ec36145108c43386474438897';
 
   Future<List<Article>> article() async {
+  const url =
+      'https://newsapi.org/v2/top-headlines?country=us&apiKey=1ea09f8ec36145108c43386474438897';
     http.Response res = await http.get(Uri.parse(url));
 
     if (res.statusCode == 200) {

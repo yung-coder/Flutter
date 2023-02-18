@@ -9,10 +9,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ApiService client = ApiService();
+  
 
   @override
   Widget build(BuildContext context) {
+  ApiService client = ApiService();
+  client.article();
     return Scaffold(
       appBar: AppBar(
         title: Text(

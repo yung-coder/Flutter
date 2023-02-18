@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:newsapp/Pages/ArticlePage.dart';
 import 'package:newsapp/Pages/HomePage.dart';
 import 'package:newsapp/model/Article.dart';
+import 'package:newsapp/notifier/query.dart';
+
+final queryProvider =
+    StateNotifierProvider<queryNoifier, Query>((ref) => queryNoifier());
 
 void main() {
   runApp(const MyApp());

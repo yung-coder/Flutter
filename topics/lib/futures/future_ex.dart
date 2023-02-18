@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -13,35 +15,37 @@ class futurex extends StatefulWidget {
 }
 
 class _futurexState extends State<futurex> {
+  List UserList = [];
+  
   @override
   void initState() {
     getStudentDetalis();
-    delayTrans();
-    CustomFuture();
+    // delayTrans();
+    // CustomFuture();
     super.initState();
   }
 
-  CustomFuture() {
-    Future future = Future(() {
-      print('Whats a future');
-    });
+  // CustomFuture() {
+  //   Future future = Future(() {
+  //     print('Whats a future');
+  //   });
 
-    // future.then((value) => print(value));
+  //   // future.then((value) => print(value));
 
-    // Future.error(throw Exception('Some  internal  error ocured'));
+  //   // Future.error(throw Exception('Some  internal  error ocured'));
 
-    // directly getting the value
-    Future.value(future);
-  }
+  //   // directly getting the value
+  //   Future.value(future);
+  // }
 
-  delayTrans() async {
-    await Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const SecondPage()));
-    });
-  }
+  // delayTrans() async {
+  //   await Future.delayed(Duration(seconds: 2), () {
+  //     Navigator.of(context)
+  //         .push(MaterialPageRoute(builder: (context) => const SecondPage()));
+  //   });
+  // }
 
-  Future<void> getStudentDetalis() async {
+  Future<List> getStudentDetalis() async {
     const url = 'https://jsonplaceholder.typicode.com/users';
 
     // method -1
@@ -53,17 +57,47 @@ class _futurexState extends State<futurex> {
     // method -2
     try {
       http.Response res = await http.get(Uri.parse(url));
-      print(res.body);
+      var body = jsonDecode(res.body);
+      for (var user in body) {
+        UserList.add(user['name']);
+      }
     } catch (e) {
       print(e.toString());
     }
+
+    return UserList;
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Hey i am future'),
+    return Scaffold(
+      body: SafeArea(
+        child: FutureBuilder(
+          future: getStudentDetalis(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    final data = snapshot.data![index];
+                    return ListTile(
+                      title: Text(data),
+                      leading: Text('${index}'),
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              }
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

@@ -3,13 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:newsapp/Pages/ArticlePage.dart';
 import 'package:newsapp/Pages/HomePage.dart';
 import 'package:newsapp/model/Article.dart';
-import 'package:newsapp/notifier/query.dart';
 
-final queryProvider =
-    StateNotifierProvider<QueryNoifier, Query>((ref) => QueryNoifier());
+
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,10 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: HomePage(),
     );
   }

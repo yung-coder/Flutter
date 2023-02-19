@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverapi/data/data_provider.dart';
+import 'package:riverapi/main.dart';
 import 'package:riverapi/models/user_model.dart';
 
 class HomePage extends ConsumerWidget {
@@ -20,6 +19,13 @@ class HomePage extends ConsumerWidget {
             List<UserModel> userList = _data.map((e) => e).toList();
             return Column(
               children: [
+                TextField(
+                  onSubmitted: (value) {
+                    ref
+                        .read(queryProvider.notifier)
+                        .updateQusery(int.parse(value));
+                  },
+                ),
                 Expanded(
                     child: ListView.builder(
                   itemCount: userList.length,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverapi/models/user_model.dart';
 import 'package:riverapi/pages/HomePage.dart';
+
+final queryProvider =
+    StateNotifierProvider<QueryNotifier, QueryModel>((ref) =>  QueryNotifier());
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

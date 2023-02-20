@@ -4,7 +4,7 @@ import 'package:riverapi/models/user_model.dart';
 import 'package:riverapi/pages/HomePage.dart';
 
 final queryProvider =
-    StateNotifierProvider<QueryNotifier, QueryModel>((ref) =>  QueryNotifier());
+    StateNotifierProvider<QueryNotifier, QueryModel>((ref) => QueryNotifier());
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo kde',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

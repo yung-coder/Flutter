@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:topics/design_patterns/buttonScreen.dart';
+import 'package:topics/design_patterns/dart_method.dart';
 import 'package:topics/futures/future_ex.dart';
 
 void main() {
+  Employee employee = Employee('hr');
+  employee.work();
   runApp(const MyApp());
 }
 
@@ -15,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const futurex(),
+      home: const ButtonScreen(),
     );
   }
 }

@@ -8,6 +8,14 @@ abstract class AbstractFactory {
 }
 
 class AbstractFactoryimp implements AbstractFactory {
+  static AbstractFactoryimp? _instance;
+  AbstractFactoryimp._internal();
+
+  static AbstractFactoryimp  get instance {
+    _instance ??= AbstractFactoryimp._internal();
+    return _instance!;
+  }
+
   @override
   Widget buildButton(
       BuildContext context, String text, VoidCallback onPressed) {

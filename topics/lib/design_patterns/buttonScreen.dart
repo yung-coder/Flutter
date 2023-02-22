@@ -26,11 +26,14 @@ class _ButtonScreenState extends State<ButtonScreen> {
           //   print('Its Iphone');
           // }, const Text('Click'))
 
-          AbstractFactoryimp().buildButton(context, 'click', () {}),
-          const SizedBox(
-            height: 10,
-          ),
-          AbstractFactoryimp().buildIndicator(context),
+          // AbstractFactoryimp().buildButton(context, 'click', () {}),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // AbstractFactoryimp().buildIndicator(context),
+
+
+          AbstractFactoryimp.instance.buildIndicator(context),
         ],
       ),
     );

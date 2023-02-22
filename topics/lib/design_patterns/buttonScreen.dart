@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:topics/design_patterns/adaptar.dart';
 import 'package:topics/design_patterns/flutter_factory.dart';
 import 'package:topics/design_patterns/platform_abstract_factory.dart';
 
@@ -12,6 +13,7 @@ class ButtonScreen extends StatefulWidget {
 }
 
 class _ButtonScreenState extends State<ButtonScreen> {
+  final PostAPI postAPI = PostAPI();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +34,19 @@ class _ButtonScreenState extends State<ButtonScreen> {
           // ),
           // AbstractFactoryimp().buildIndicator(context),
 
-
-          AbstractFactoryimp.instance.buildIndicator(context),
+          // AbstractFactoryimp.instance.buildIndicator(context),
+          Expanded(
+            child: ListView.builder(
+              itemCount: postAPI.getPosts().length,
+              itemBuilder: (context, index) {
+                final posts = postAPI.getPosts()[index];
+                return ListTile(
+                  title: Text(posts.title),
+                  subtitle: Text(posts.bio),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

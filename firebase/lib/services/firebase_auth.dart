@@ -1,3 +1,4 @@
+import 'package:firebase/utlis/showOTPDialog.dart';
 import 'package:firebase/utlis/showSnackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,9 +32,7 @@ class FirebaseAuthMethods {
     }
   }
 
-
-
-   Future<void> loginWithEmail({
+  Future<void> loginWithEmail({
     required String email,
     required String password,
     required BuildContext context,
@@ -53,4 +52,43 @@ class FirebaseAuthMethods {
     }
   }
 
+  Future<void> phoneSignIn(
+    BuildContext context,
+    String phoneNumber,
+  ) async {
+    TextEditingController codeController = TextEditingController();
+    // FOR ANDROID, IOS
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      //  Automatic handling of the SMS code
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // !!! works only on android !!!
+        await _auth.signInWithCredential(credential);
+      },
+      // Displays a message when verification fails
+      verificationFailed: (e) {
+        showSnackBar(context, e.message!);
+      },
+      // Displays a dialog box when OTP is sent
+      codeSent: ((String verificationId, int? resendToken) async {
+        showOTPDialog(
+          codeController: codeController,
+          context: context,
+          onPressed: () async {
+            PhoneAuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: verificationId,
+              smsCode: codeController.text.trim(),
+            );
+
+            // !!! Works only on Android, iOS !!!
+            await _auth.signInWithCredential(credential);
+            Navigator.of(context).pop(); // Remove the dialog box
+          },
+        );
+      }),
+      codeAutoRetrievalTimeout: (String verificationId) {
+        // Auto-resolution timed out...
+      },
+    );
+  }
 }

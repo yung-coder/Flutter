@@ -1,4 +1,5 @@
 import 'package:firebase/services/firebase_auth.dart';
+import 'package:firebase/widgets/custom_button.dart';
 import 'package:firebase/widgets/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,13 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
               "Login",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
+          ),
+          CustomButton(
+            onTap: () {
+              FirebaseAuthMethods(FirebaseAuth.instance)
+                  .signInWithGoogle(context);
+            },
+            text: 'Google Sign In',
           ),
         ],
       ),

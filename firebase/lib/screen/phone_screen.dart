@@ -13,7 +13,8 @@ class PhoneScreen extends StatefulWidget {
 }
 
 class _PhoneScreenState extends State<PhoneScreen> {
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController
+   phoneController = TextEditingController();
 
   @override
   void dispose() {

@@ -30,4 +30,27 @@ class FirebaseAuthMethods {
       showSnackBar(context, e.message!);
     }
   }
+
+
+
+   Future<void> loginWithEmail({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (!_auth.currentUser!.emailVerified) {
+        await sendEmailVerification(context);
+        // restrict access to certain things using provider
+        // transition to another page instead of home screen
+      }
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!); // Displaying the error message
+    }
+  }
+
 }

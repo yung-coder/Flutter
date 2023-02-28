@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Center(
-        child: Text(userProvider.user.username),
+        child: Text(userProvider.user.username!),
       ),
     );
   }

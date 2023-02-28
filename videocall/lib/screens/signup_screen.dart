@@ -24,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _usernameController.text, _passwordController.text);
 
     if (res) {
-      Navigator.pushNamed(context, HomeScreen.routeName);
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     }
   }
 

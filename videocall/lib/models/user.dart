@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 class User {
-  final String uid;
-  final String username;
-  final String email;
+  final String? uid;
+  final String? username;
+  final String? email;
   User({
     required this.uid,
     required this.username,
@@ -23,7 +23,7 @@ class User {
     return User(
       uid: map['uid'] as String,
       username: map['username'] as String,
-      email: map['email'] as String,
+      email: map['email'] ?? '',
     );
   }
 }

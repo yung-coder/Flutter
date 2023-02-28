@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:videocall/firebase/auth_methods.dart';
+import 'package:videocall/screens/home_screen.dart';
 import 'package:videocall/widgets/custom_button.dart';
 import 'package:videocall/widgets/custom_textfiled.dart';
 
@@ -15,6 +18,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthMethods _authMethods = AuthMethods();
+
+  loginUser() async {
+    bool res = await _authMethods.loginUser(
+      context,
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (res) {
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -57,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(text: 'Login', onTap: () {})
+              CustomButton(text: 'Login', onTap: loginUser)
             ],
           ),
         ),

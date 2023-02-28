@@ -6,6 +6,7 @@ import 'package:videocall/firebase/auth_methods.dart';
 import 'package:videocall/screens/home_screen.dart';
 import 'package:videocall/widgets/custom_button.dart';
 import 'package:videocall/widgets/custom_textfiled.dart';
+import 'package:videocall/widgets/loading_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -20,15 +21,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final AuthMethods _authMethods = AuthMethods();
 
+  bool _isloading = false;
+
   loginUser() async {
+    setState(() {
+      _isloading = true;
+    });
     bool res = await _authMethods.loginUser(
       context,
       _emailController.text,
       _passwordController.text,
     );
+    setState(() {
+      _isloading = false;
+    });
     if (res) {
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,46 +54,48 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login up'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: size.height * 0.1,
-              ),
-              const Text(
-                'Email',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+      body: _isloading
+          ? const LoadingIndicator()
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
+                    const Text(
+                      'Email',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: CustomTextFiled(controller: _emailController),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Password',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: CustomTextFiled(controller: _passwordController),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(text: 'Login', onTap: loginUser)
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CustomTextFiled(controller: _emailController),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                'Password',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CustomTextFiled(controller: _passwordController),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomButton(text: 'Login', onTap: loginUser)
-            ],
-          ),
-        ),
-      ),
+            ),
     );
     ;
   }

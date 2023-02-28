@@ -1,11 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:videocall/providers/user_provider.dart';
+import 'package:videocall/screens/home_screen.dart';
 import 'package:videocall/screens/login_screen.dart';
 import 'package:videocall/screens/onboarding_screen.dart';
 import 'package:videocall/screens/signup_screen.dart';
 import 'package:videocall/utils/colors.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => UserProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -32,6 +40,7 @@ class MyApp extends StatelessWidget {
         OnboardingScreen.routeName: (context) => const OnboardingScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
         SignupScreen.routeName: (context) => const SignupScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
       },
       home: const OnboardingScreen(),
     );

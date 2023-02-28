@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:videocall/firebase/auth_methods.dart';
+import 'package:videocall/screens/home_screen.dart';
 import 'package:videocall/widgets/custom_button.dart';
 import 'package:videocall/widgets/custom_textfiled.dart';
 
@@ -16,6 +18,16 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  final AuthMethods _authMethods = AuthMethods();
+  void signupUser() async {
+    bool res = await _authMethods.signUpUser(context, _emailController.text,
+        _usernameController.text, _passwordController.text);
+
+    if (res) {
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -71,7 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(text: 'Sign up', onTap: () {})
+              CustomButton(text: 'Sign up', onTap: signupUser)
             ],
           ),
         ),

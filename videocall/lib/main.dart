@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
             ),
             iconTheme: const IconThemeData(color: primaryColor)),
       ),
+      routes: {
+        OnboardingScreen.routeName: (context) => const OnboardingScreen(),
+      },
       home: const OnboardingScreen(),
     );
   }

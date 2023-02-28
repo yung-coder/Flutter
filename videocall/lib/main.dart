@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:videocall/screens/login_screen.dart';
 import 'package:videocall/screens/onboarding_screen.dart';
+import 'package:videocall/screens/signup_screen.dart';
 import 'package:videocall/utils/colors.dart';
 
 void main() {
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         OnboardingScreen.routeName: (context) => const OnboardingScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        SignupScreen.routeName: (context) => const SignupScreen(),
       },
       home: const OnboardingScreen(),
     );

@@ -4,6 +4,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:videocall/firebase/fireStore_methods.dart';
+import 'package:videocall/screens/broadcast.dart';
 import 'package:videocall/utils/colors.dart';
 import 'package:videocall/utils/utiles.dart';
 import 'package:videocall/widgets/custom_button.dart';
@@ -24,6 +26,19 @@ class _GoLiveState extends State<GoLive> {
   void dispose() {
     _titleController.dispose();
     super.dispose();
+  }
+
+  goLiveStream() async {
+    String channdelId = await FireStoreMethods()
+        .startLiveStream(context, _titleController.text, image);
+    if (channdelId.isNotEmpty) {
+      showSnackBar(context, 'Live Stream Started sucessfully');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const BroadCastScreen(),
+        ),
+      );
+    }
   }
 
   @override
@@ -110,7 +125,7 @@ class _GoLiveState extends State<GoLive> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: CustomButton(text: 'Go Live', onTap: () {}),
+              child: CustomButton(text: 'Go Live', onTap: goLiveStream),
             )
           ],
         ),

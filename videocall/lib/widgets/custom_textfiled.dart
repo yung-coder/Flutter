@@ -6,14 +6,14 @@ import 'package:videocall/utils/colors.dart';
 
 class CustomTextFiled extends StatelessWidget {
   final TextEditingController controller;
-  const CustomTextFiled({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  final Function(String)? onTap;
+  const CustomTextFiled({Key? key, required this.controller, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+        onSubmitted: onTap,
         controller: controller,
         decoration: const InputDecoration(
           focusedBorder: OutlineInputBorder(

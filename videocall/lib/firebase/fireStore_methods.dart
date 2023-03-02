@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import 'package:videocall/firebase/storage_methds.dart';
 import 'package:videocall/models/livestream.dart';
 import 'package:videocall/providers/user_provider.dart';
@@ -55,6 +56,27 @@ class FireStoreMethods {
     return channelId;
   }
 
+  Future<void> chat(String text, String id, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      String commentId = const Uuid().v1();
+      await _firestore
+          .collection('livestream')
+          .doc(id)
+          .collection('comments')
+          .doc(commentId)
+          .set({
+        'username': user.user.username,
+        'message': text,
+        'uid': user.user.uid,
+        'createdAt': DateTime.now(),
+        'commentId': commentId,
+      });
+    } on FirebaseException catch (e) {
+      showSnackBar(context, e.message!);
+    }
+  }
 
   Future<void> updateViewCount(String id, bool isIncrease) async {
     try {

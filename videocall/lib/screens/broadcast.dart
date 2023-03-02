@@ -198,7 +198,7 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
 
   _renderVideo(user) {
     return AspectRatio(
-      aspectRatio: 9 / 16,
+      aspectRatio: 9 / 9,
       child: "${user.uid}${user.username}" == widget.channdelId
           ? const RtcLocalView.SurfaceView(
               zOrderMediaOverlay: true,

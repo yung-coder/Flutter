@@ -117,7 +117,7 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
 
     await _engine.joinChannelWithUserAccount(
       token,
-      'testing123',
+      widget.channdelId,
       Provider.of<UserProvider>(context, listen: false).user.uid!,
     );
   }

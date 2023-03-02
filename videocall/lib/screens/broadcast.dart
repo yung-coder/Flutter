@@ -156,33 +156,40 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
         await _leaveChannel();
         return Future.value(true);
       },
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              _renderVideo(user),
-              if ("${user.uid}${user.username}" == widget.channdelId)
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: _switchCamera,
-                      child: const Text('Switch'),
+      child: SafeArea(
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+              child: Column(
+                children: [
+                  _renderVideo(user),
+                  if ("${user.uid}${user.username}" == widget.channdelId)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                            onTap: _switchCamera,
+                            child: const Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5 , horizontal: 5),
+                              child: Icon(Icons.sync)
+                            )),
+                        InkWell(
+                          onTap: onToogleMute,
+                          child: Text(isMuted ? 'Unmute' : "Mute"),
+                        )
+                      ],
                     ),
-                    InkWell(
-                      onTap: onToogleMute,
-                      child: Text(isMuted ? 'Unmute' : "Mute"),
-                    )
-                  ],
-                ),
               Expanded(
                 child: Chat(
                   channelId: widget.channdelId,
                 ),
-              )
-            ],
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -191,7 +198,7 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
 
   _renderVideo(user) {
     return AspectRatio(
-      aspectRatio: 16 / 9,
+      aspectRatio: 9 / 16,
       child: "${user.uid}${user.username}" == widget.channdelId
           ? const RtcLocalView.SurfaceView(
               zOrderMediaOverlay: true,

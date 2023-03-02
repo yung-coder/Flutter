@@ -46,6 +46,7 @@ dependencies:
   permission_handler: ^9.2.0
   uuid: ^3.0.7
   http: ^0.13.5
+  timeago: ^3.3.0
 
 dev_dependencies:
   flutter_test:

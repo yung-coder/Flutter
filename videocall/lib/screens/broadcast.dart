@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
@@ -13,6 +15,7 @@ import 'package:videocall/firebase/fireStore_methods.dart';
 import 'package:videocall/providers/user_provider.dart';
 import 'package:videocall/screens/home_screen.dart';
 import 'package:videocall/widgets/chat.dart';
+import 'package:http/http.dart' as http;
 
 class BroadCastScreen extends StatefulWidget {
   final bool isBroadcaster;
@@ -57,6 +60,29 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
     _joinChannel();
   }
 
+  String baseUrl = "https://go-server-7l7r.onrender.com";
+  String? token;
+
+  Future<void> getToken() async {
+    final res = await http.get(
+      Uri.parse(baseUrl +
+          '/rtc/' +
+          widget.channdelId +
+          'publisher/userAccount' +
+          Provider.of<UserProvider>(context, listen: false).user.uid! +
+          '/'),
+    );
+
+    if (res.statusCode == 200) {
+      setState(() {
+        token = res.body;
+        token = jsonDecode(token!)['rtcToken'];
+      });
+    } else {
+      print("Failed to fetch");
+    }
+  }
+
   void _addListners() async {
     _engine.setEventHandler(
       RtcEngineEventHandler(joinChannelSuccess: (channel, uid, elasped) {
@@ -76,17 +102,21 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
         setState(() {
           remoteUid.clear();
         });
+      }, tokenPrivilegeWillExpire: (token) async {
+        await getToken();
+        await _engine.renewToken(token);
       }),
     );
   }
 
   void _joinChannel() async {
+    await getToken();
     if (defaultTargetPlatform == TargetPlatform.android) {
       await [Permission.microphone, Permission.camera].request();
     }
 
     await _engine.joinChannelWithUserAccount(
-      temptoken,
+      token,
       'testing123',
       Provider.of<UserProvider>(context, listen: false).user.uid!,
     );

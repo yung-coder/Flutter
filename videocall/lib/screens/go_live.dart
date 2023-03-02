@@ -35,7 +35,10 @@ class _GoLiveState extends State<GoLive> {
       showSnackBar(context, 'Live Stream Started sucessfully');
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const BroadCastScreen(),
+          builder: (context) => BroadCastScreen(
+            isBroadcaster: true,
+            channdelId: channdelId,
+          ),
         ),
       );
     }

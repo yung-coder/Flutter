@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: agora_rtc_engine
-      sha256: "2dad9b9b7dc92d3a2f47f6bd2f4feffffef355b1d1ea94f8e1e0f9c89d93a0de"
+      sha256: c1379d78722b3f49f3691c72664b55e094bdf384059125a7bb601bd7217928f6
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.0"
+    version: "5.3.1"
   async:
     dependency: transitive
     description:
@@ -248,14 +248,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.0"
-  iris_event:
-    dependency: transitive
-    description:
-      name: iris_event
-      sha256: bd5d84ac0edb0dd65dfadfae1e76422f783e73a73c9a06b4e78419d0d3a2d48e
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   js:
     dependency: transitive
     description:
@@ -340,18 +332,18 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "33c6a1253d1f95fd06fa74b65b7ba907ae9811f9d5c1d3150e51417d04b8d6a8"
+      sha256: "5749ebeb7ec0c3865ea17e3eb337174b87747be816dab582c551e1aff6f6bbf3"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.0"
+    version: "9.2.0"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: "8028362b40c4a45298f1cbfccd227c8dd6caf0e27088a69f2ba2ab15464159e2"
+      sha256: a512e0fa8abcb0659d938ec2df93a70eb1df1fdea5fdc6d79a866bfd858a28fc
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.0"
+    version: "9.0.2+1"
   permission_handler_apple:
     dependency: transitive
     description:

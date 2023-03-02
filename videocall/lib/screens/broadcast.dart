@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:videocall/config/appid.dart';
+import 'package:videocall/firebase/fireStore_methods.dart';
 import 'package:videocall/providers/user_provider.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
@@ -86,16 +87,33 @@ class _BroadCastScreenState extends State<BroadCastScreen> {
     );
   }
 
+  _leaveChannel() async {
+    await _engine.leaveChannel();
+    if ('${Provider.of<UserProvider>(context, listen: false).user.uid}${Provider.of<UserProvider>(context, listen: false).user.username}' ==
+        widget.channdelId) {
+      await FireStoreMethods().endLiveStream(widget.channdelId);
+    } else {
+      await FireStoreMethods().updateViewCount(widget.channdelId, false);
+    }
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            _renderVideo(user),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        await _leaveChannel();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            children: [
+              _renderVideo(user),
+            ],
+          ),
         ),
       ),
     );

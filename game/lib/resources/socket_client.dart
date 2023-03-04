@@ -5,15 +5,15 @@ class SocketClient {
   static SocketClient? _instance;
 
   SocketClient._internal() {
-    socket = IO.io('122.173.24.22/32:3000', <String, dynamic>{
+    socket = IO.io('http://192.168.1.7:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
-    socket!.connected;
+    socket!.connect();
   }
 
   static SocketClient? get instance {
     _instance ??= SocketClient._internal();
-    return _instance;
+    return _instance!;
   }
 }

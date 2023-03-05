@@ -51,6 +51,7 @@ io.on("connection", function (socket) {
         room.players.push(player);
         room = await room.save();
         io.to(roomId).emit("joinRoomSuccess", room);
+        io.to(roomId).emit("updatePlayers", room.players);
       } else {
         socket.emit("errorOccured", "The game is in progress, try again later");
       }

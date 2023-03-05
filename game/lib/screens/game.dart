@@ -15,10 +15,12 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<RoomDataProvider>(context).player1.name);
+    print(Provider.of<RoomDataProvider>(context).player2.name);
     return Scaffold(
       body: Center(
         child: Text(
-          Provider.of<RoomDataProvider>(context).roomData.toString(),
+          Provider.of<RoomDataProvider>(context).player1.toString(),
         ),
       ),
     );

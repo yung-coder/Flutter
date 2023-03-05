@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:game/resources/socket_methods.dart';
 import 'package:game/responsive/responsive.dart';
 import 'package:game/widgets/Custom_button.dart';
 import 'package:game/widgets/Custom_text.dart';
@@ -17,6 +20,14 @@ class JoinRoomScreen extends StatefulWidget {
 class _JoinRoomScreenState extends State<JoinRoomScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _gameidController = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.joinRoomSuccessListner(context);
+    _socketMethods.errorOccuredListner(context);
+  }
 
   @override
   void dispose() {
@@ -64,7 +75,12 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
               SizedBox(
                 height: size.height * 0.08,
               ),
-              CustomButton(onTap: () {}, text: 'Join')
+              CustomButton(
+                  onTap: () => _socketMethods.joinRoom(
+                        _nameController.text,
+                        _gameidController.text,
+                      ),
+                  text: 'Join')
             ],
           ),
         ),

@@ -24,7 +24,6 @@ io.on("connection", function (socket) {
       room.players.push(player);
       room.turn = player;
       room = await room.save();
-
       const roomId = room._id.toString();
       socket.join(roomId);
       io.to(roomId).emit("createRoomDone", room);
@@ -32,6 +31,34 @@ io.on("connection", function (socket) {
       console.log(error);
     }
   });
+
+  socket.on("joinRoom", async ({ name, roomId }) => {
+    try {
+      if (!roomId.match(/^[0-9a-fA-F]{24}$/)) {
+        socket.emit("errorOccured", "Please enter a valid room Id");
+        return;
+      }
+
+      let room = await Room.findById(roomId);
+
+      if (room.isJoin) {
+        let player = {
+          name,
+          socketID: socket.id,
+          playerType: "O",
+        };
+        socket.join(roomId);
+        room.players.push(player);
+        room = await room.save();
+        io.to(roomId).emit("joinRoomSuccess", room);
+      } else {
+        socket.emit("errorOccured", "The game is in progress, try again later");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 });
 
 mongoose

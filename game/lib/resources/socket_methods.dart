@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:game/provider/room_data.dart';
 import 'package:game/resources/socket_client.dart';
 import 'package:game/screens/game.dart';
+import 'package:game/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class SocketMethods {
@@ -14,11 +15,34 @@ class SocketMethods {
     }
   }
 
+  void joinRoom(String name, String roomId) {
+    if (name.isNotEmpty && roomId.isNotEmpty) {
+      _socketClinet.emit('joinRoom', {
+        'name': name,
+        'roomId': roomId,
+      });
+    }
+  }
+
   void createRoomSuccessListner(BuildContext context) {
     _socketClinet.on('createRoomDone', (room) {
       Provider.of<RoomDataProvider>(context, listen: false)
           .updateRoomData(room);
       Navigator.pushNamed(context, GameScreen.routeName);
+    });
+  }
+
+  void joinRoomSuccessListner(BuildContext context) {
+    _socketClinet.on('joinRoomSuccess', (room) {
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(room);
+      Navigator.pushNamed(context, GameScreen.routeName);
+    });
+  }
+
+  void errorOccuredListner(BuildContext context) {
+    _socketClinet.on('errorOccured', (data) {
+      showSnackBar(context, data);
     });
   }
 }

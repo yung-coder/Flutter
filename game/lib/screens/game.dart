@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:game/provider/room_data.dart';
 import 'package:game/resources/socket_methods.dart';
+import 'package:game/views/game_board.dart';
+import 'package:game/views/scoreboard.dart';
 import 'package:game/views/waiting_lobby.dart';
 import 'package:provider/provider.dart';
 
@@ -32,11 +34,15 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       body: roomDataProvider.roomData['isJoin']
           ? const WaitingLobby()
-          : Center(
-              child: Text(
-                Provider.of<RoomDataProvider>(context).player1.toString(),
-              ),
+          : SafeArea(
+            child: Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+               children: const [
+                 ScoreBoard(),
+                 TicTacToeBoard(),
+               ],
             ),
+          )
     );
   }
 }

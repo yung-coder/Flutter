@@ -40,6 +40,15 @@ class SocketMethods {
     });
   }
 
+  void tapGrid(int index, String roomId, List<String> displayElements) {
+    if (displayElements[index] == '') {
+      _socketClinet.emit('tap', {
+        'index': index,
+        'roomId': roomId,
+      });
+    }
+  }
+
   void errorOccuredListner(BuildContext context) {
     _socketClinet.on('errorOccured', (data) {
       showSnackBar(context, data);
@@ -59,6 +68,18 @@ class SocketMethods {
     _socketClinet.on('updateRoom', (data) {
       Provider.of<RoomDataProvider>(context, listen: false)
           .updateRoomData(data);
+    });
+  }
+
+  void tappedListner(BuildContext context) {
+    _socketClinet.on('tapped', (data) {
+      RoomDataProvider roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      roomDataProvider.updateDisplayElements(
+        data['index'],
+        data['choice'],
+      );
+      roomDataProvider.updateRoomData(data['room']);
     });
   }
 }

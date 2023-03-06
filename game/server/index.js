@@ -53,7 +53,7 @@ io.on("connection", function (socket) {
         room = await room.save();
         io.to(roomId).emit("joinRoomSuccess", room);
         io.to(roomId).emit("updatePlayers", room.players);
-        io.to(roomId).emit('updateRoom', room);
+        io.to(roomId).emit("updateRoom", room);
       } else {
         socket.emit("errorOccured", "The game is in progress, try again later");
       }
@@ -62,6 +62,28 @@ io.on("connection", function (socket) {
     }
   });
 
+  socket.on("tap", async ({ index, roomId }) => {
+    try {
+      let room = await Room.findById(roomId);
+
+      let choice = room.turn.playerType;
+      if (room.turnIndex === 0) {
+        room.turn = room.players[1];
+        room.turnIndex = 1;
+      } else {
+        room.turn = room.players[0];
+        room.turnIndex = 0;
+      }
+      room = await room.save();
+      io.to(roomId).emit("tapped", {
+        index,
+        choice,
+        room,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
 
 mongoose

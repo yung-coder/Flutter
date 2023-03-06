@@ -54,4 +54,11 @@ class SocketMethods {
           .updatePlayer2(playerData[1]);
     });
   }
+
+  void updateRoomListener(BuildContext context) {
+    _socketClinet.on('updateRoom', (data) {
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(data);
+    });
+  }
 }

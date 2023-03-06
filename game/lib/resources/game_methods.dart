@@ -94,4 +94,14 @@ class GameMethods {
       }
     }
   }
+
+  void clearBoard(BuildContext context) {
+    RoomDataProvider roomDataProvider =
+        Provider.of<RoomDataProvider>(context, listen: false);
+
+    for (int i = 0; i < roomDataProvider.displayElements.length; i++) {
+      roomDataProvider.updateDisplayElements(i, '');
+    }
+    roomDataProvider.setFilledBoxesTo0();
+  }
 }

@@ -87,4 +87,23 @@ class SocketMethods {
       GameMethods().checkWinner(context, _socketClinet);
     });
   }
+
+  void pointIncreaseListener(BuildContext context) {
+    _socketClinet.on('pointIncrease', (playerData) {
+      var roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      if (playerData['socketID'] == roomDataProvider.player1.socketID) {
+        roomDataProvider.updatePlayer1(playerData);
+      } else {
+        roomDataProvider.updatePlayer2(playerData);
+      }
+    });
+  }
+
+  void endGameListener(BuildContext context) {
+    _socketClinet.on('endGame', (playerData) {
+      ShowGameDialog(context, '${playerData['name']} won the game!');
+      Navigator.popUntil(context, (route) => false);
+    });
+  }
 }

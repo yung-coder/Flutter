@@ -37,9 +37,12 @@ class _GameScreenState extends State<GameScreen> {
             : SafeArea(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
+                  children: [
                     ScoreBoard(),
                     TicTacToeBoard(),
+                    Text(
+                      '${roomDataProvider.roomData['turn']['name']}\'s turn',
+                    ),
                   ],
                 ),
               ));

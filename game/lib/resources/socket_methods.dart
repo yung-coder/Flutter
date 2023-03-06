@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:game/provider/room_data.dart';
@@ -5,9 +7,12 @@ import 'package:game/resources/socket_client.dart';
 import 'package:game/screens/game.dart';
 import 'package:game/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/src/socket.dart';
 
 class SocketMethods {
   final _socketClinet = SocketClient.instance!.socket!;
+
+  Socket get socketClient => _socketClinet;
 
   void createRoom(String name) {
     if (name.isNotEmpty) {

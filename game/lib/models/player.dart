@@ -14,7 +14,7 @@ class Player {
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'name': name,
       'socketID': socketID,
       'points': points,
@@ -26,7 +26,7 @@ class Player {
     return Player(
       name: map['name'] ?? "",
       socketID: map['socketID'] ?? "",
-      points: map['points'] ?? "",
+      points: map['points']?.toDouble() ?? 0.0,
       playerType: map['playerType'] ?? "",
     );
   }

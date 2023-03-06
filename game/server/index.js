@@ -17,8 +17,8 @@ io.on("connection", function (socket) {
     try {
       let room = new Room();
       let player = {
-        socketID: socket.id,
         name,
+        socketID: socket.id,
         playerType: "X",
       };
       room.players.push(player);

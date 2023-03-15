@@ -1,12 +1,17 @@
 // Parametrized constructor with Named Parameters in Dart
 
 class Student {
-  int? id;
-  String? name;
-  int? roolNo;
-  String? school;
+  final int? id;
+  final String? name;
+  final int? roolNo;
+  final String? school;
 
-  Student({this.id, this.name, this.roolNo, this.school = "XYZ"});
+  const Student(
+    this.id,
+    this.name,
+    this.roolNo,
+    this.school,
+  );
 
   void display() {
     print("Id is $id");
@@ -16,10 +21,13 @@ class Student {
   }
 }
 
-// void main() {
-//   Student s = Student(id: 1, name: "Jack", roolNo: 1, school: "XYZ ");
-//   s.display();
-// }
+void main() {
+  Student s = const Student(1, "Jack", 1, "XYZ ");
+  s.display();
+  Student s2 = const Student(1, "Jack", 1, "XYZ ");
+  s2.display();
+  print("p1 has ${s.hashCode} and ${s2.hashCode}");
+}
 
 // Named constructor
 
@@ -54,18 +62,20 @@ class Point {
   const Point(this.x, this.y);
 }
 
-void main() {
-  // p1 and p2 has the same hash code.
-  Point p1 = const Point(1, 2);
-  print("The p1 hash code is: ${p1.hashCode}");
+// void main() {
+//   // p1 and p2 has the same hash code.
+//   Point p1 = const Point(1, 2);
+//   print("The p1 hash code is: ${p1.hashCode}");
 
-  Point p2 = const Point(1, 2);
-  print("The p2 hash code is: ${p2.hashCode}");
-  // without using const
-  // this has different hash code.
-  Point p3 = Point(2, 2);
-  print("The p3 hash code is: ${p3.hashCode}");
+//   Point p2 = const Point(1, 2);
+//   print("The p2 hash code is: ${p2.hashCode}");
+//   // without using const
+//   // this has different hash code.
+//   Point p3 = Point(2, 2);
+//   print("The p3 hash code is: ${p3.hashCode}");
 
-  Point p4 = Point(2, 2);
-  print("The p4 hash code is: ${p4.hashCode}");
-}
+//   Point p4 = Point(2, 2);
+//   print("The p4 hash code is: ${p4.hashCode}");
+// }
+
+

@@ -1,7 +1,6 @@
+import 'package:ai/feature_box.dart';
 import 'package:ai/pallet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -63,8 +62,35 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
+          ),
+          Column(
+            children: const [
+              FeatureBox(
+                color: Pallete.firstSuggestionBoxColor,
+                headerText: 'CHAT GPT',
+                desc:
+                    'Smater way to ask dumb questions in a unique way or you may call the chad way',
+              ),
+              FeatureBox(
+                color: Pallete.secondSuggestionBoxColor,
+                headerText: 'Dall-E',
+                desc:
+                    'Get Pictures that you dont need but still want cuz u want to flex it on twitter',
+              ),
+              FeatureBox(
+                color: Pallete.thirdSuggestionBoxColor,
+                headerText: 'Voice Assistant',
+                desc:
+                    'People who use android  want to hear me cuz they cannot afford an iphone lol xd',
+              )
+            ],
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Pallete.firstSuggestionBoxColor,
+        onPressed: () {},
+        child: const Icon(Icons.mic),
       ),
     );
   }

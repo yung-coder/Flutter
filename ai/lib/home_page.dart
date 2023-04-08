@@ -1,6 +1,7 @@
 import 'package:ai/api.dart';
 import 'package:ai/feature_box.dart';
 import 'package:ai/pallet.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   final OpenAIService openAIService = OpenAIService();
   String? generatedContent;
   String? generatedImageUrl;
+  int start = 200;
+  int delay = 200;
 
   @override
   void initState() {
@@ -69,40 +72,41 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Assistant'),
-        leading: const Icon(Icons.menu),
+        title: BounceInDown(child: const Text('Assistant')),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-              child: Visibility(
-                visible: generatedImageUrl == null,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 40).copyWith(
-                    top: 30,
-                  ),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Pallete.borderColor,
-                      ),
-                      borderRadius: BorderRadius.circular(20).copyWith(
-                        topLeft: Radius.zero,
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      generatedContent == null
-                          ? 'GPT here for you !'
-                          : generatedContent!,
-                      style: TextStyle(
-                        color: Pallete.mainFontColor,
-                        fontSize: generatedContent == null ? 25 : 18,
+            FadeInRight(
+              child: Center(
+                child: Visibility(
+                  visible: generatedImageUrl == null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 40).copyWith(
+                      top: 30,
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Pallete.borderColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20).copyWith(
+                          topLeft: Radius.zero,
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        generatedContent == null
+                            ? 'GPT here for you !'
+                            : generatedContent!,
+                        style: TextStyle(
+                          color: Pallete.mainFontColor,
+                          fontSize: generatedContent == null ? 25 : 18,
+                        ),
                       ),
                     ),
                   ),
@@ -117,45 +121,56 @@ class _HomePageState extends State<HomePage> {
                   child: Image.network(generatedImageUrl!),
                 ),
               ),
-            Visibility(
-              visible: generatedContent == null && generatedImageUrl == null,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.only(
-                  top: 10,
-                  left: 0,
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  'Few Features',
-                  style: TextStyle(
-                      color: Pallete.mainFontColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+            SlideInLeft(
+              child: Visibility(
+                visible: generatedContent == null && generatedImageUrl == null,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(
+                    top: 10,
+                    left: 0,
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Few Features',
+                    style: TextStyle(
+                        color: Pallete.mainFontColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
             Visibility(
               visible: generatedContent == null && generatedImageUrl == null,
               child: Column(
-                children: const [
-                  FeatureBox(
-                    color: Pallete.firstSuggestionBoxColor,
-                    headerText: 'CHAT GPT',
-                    desc:
-                        'Smater way to ask dumb questions in a unique way or you may call the chad way',
+                children: [
+                  SlideInLeft(
+                    delay: Duration(microseconds: start),
+                    child: const FeatureBox(
+                      color: Pallete.firstSuggestionBoxColor,
+                      headerText: 'CHAT GPT',
+                      desc:
+                          'Smater way to ask dumb questions in a unique way or you may call the chad way',
+                    ),
                   ),
-                  FeatureBox(
-                    color: Pallete.secondSuggestionBoxColor,
-                    headerText: 'Dall-E',
-                    desc:
-                        'Get Pictures that you dont need but still want cuz u want to flex it on twitter',
+                  SlideInLeft(
+                    delay: Duration(milliseconds: start + delay),
+                    child: const FeatureBox(
+                      color: Pallete.secondSuggestionBoxColor,
+                      headerText: 'Dall-E',
+                      desc:
+                          'Get Pictures that you dont need but still want cuz u want to flex it on twitter',
+                    ),
                   ),
-                  FeatureBox(
-                    color: Pallete.thirdSuggestionBoxColor,
-                    headerText: 'Voice Assistant',
-                    desc:
-                        'People who use android  want to hear me cuz they cannot afford an iphone lol xd',
+                  SlideInLeft(
+                    delay: Duration(milliseconds: start + 2 * delay),
+                    child: const FeatureBox(
+                      color: Pallete.thirdSuggestionBoxColor,
+                      headerText: 'Voice Assistant',
+                      desc:
+                          'People who use android  want to hear me cuz they cannot afford an iphone lol xd',
+                    ),
                   )
                 ],
               ),
@@ -163,29 +178,32 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Pallete.firstSuggestionBoxColor,
-        onPressed: () async {
-          if (await speechToText.hasPermission && speechToText.isNotListening) {
-            await startListening();
-          } else if (speechToText.isListening) {
-            final speech = await openAIService.isArtPromptAPI(lastWords);
-            if (speech.contains('https')) {
-              generatedImageUrl = speech;
-              generatedContent = null;
-              setState(() {});
+      floatingActionButton: ZoomIn(
+        child: FloatingActionButton(
+          backgroundColor: Pallete.firstSuggestionBoxColor,
+          onPressed: () async {
+            if (await speechToText.hasPermission &&
+                speechToText.isNotListening) {
+              await startListening();
+            } else if (speechToText.isListening) {
+              final speech = await openAIService.isArtPromptAPI(lastWords);
+              if (speech.contains('https')) {
+                generatedImageUrl = speech;
+                generatedContent = null;
+                setState(() {});
+              } else {
+                generatedImageUrl = null;
+                generatedContent = speech;
+                setState(() {});
+                await systemSpeak(speech);
+              }
+              await stopListening();
             } else {
-              generatedImageUrl = null;
-              generatedContent = speech;
-              setState(() {});
-              await systemSpeak(speech);
+              initSpeechToText();
             }
-            await stopListening();
-          } else {
-            initSpeechToText();
-          }
-        },
-        child: const Icon(Icons.mic),
+          },
+          child: Icon(speechToText.isListening ? Icons.stop : Icons.mic),
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:ai/api.dart';
 import 'package:ai/feature_box.dart';
 import 'package:ai/pallet.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final speechToText = SpeechToText();
   String lastWords = '';
+  final OpenAIService openAIService = OpenAIService();
 
   @override
   void initState() {
@@ -47,7 +49,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     speechToText.stop();
   }
-   
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +135,8 @@ class _HomePageState extends State<HomePage> {
           if (await speechToText.hasPermission && speechToText.isNotListening) {
             await startListening();
           } else if (speechToText.isListening) {
+            final speech = await openAIService.isArtPromptAPI(lastWords);
+            print(speech);
             await stopListening();
           } else {
             initSpeechToText();

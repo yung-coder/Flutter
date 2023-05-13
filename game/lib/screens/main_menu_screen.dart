@@ -22,7 +22,7 @@ class MainMenu extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, CreateRoomScreen.routeName);
                 },
-                text: 'Create Room'),
+                text: 'Make Room'),
             const SizedBox(
               height: 20,
             ),

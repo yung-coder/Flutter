@@ -2,7 +2,47 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/videocall/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/videocall/build" />
+      <excludeFolder url="file://$MODULE_DIR$/videocall/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/riverapi/build" />
+      <excludeFolder url="file://$MODULE_DIR$/riverapi/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/riverapi/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/newsapp/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/newsapp/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/newsapp/build" />
+      <excludeFolder url="file://$MODULE_DIR$/todo_appp/build" />
+      <excludeFolder url="file://$MODULE_DIR$/todo_appp/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/todo_appp/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/dartadv/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/dartadv/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/dartadv/build" />
+      <excludeFolder url="file://$MODULE_DIR$/game/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/game/build" />
+      <excludeFolder url="file://$MODULE_DIR$/game/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/notesapp/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/notesapp/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter/notesapp/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/firebase/build" />
+      <excludeFolder url="file://$MODULE_DIR$/firebase/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/firebase/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ai/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ai/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ai/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/cart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/cart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/cart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/currency_converter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/currency_converter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/currency_converter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/topics/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/topics/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/topics/build" />
+      <excludeFolder url="file://$MODULE_DIR$/river/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/river/build" />
+      <excludeFolder url="file://$MODULE_DIR$/river/.pub" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

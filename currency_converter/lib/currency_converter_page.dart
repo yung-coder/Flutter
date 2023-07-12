@@ -5,7 +5,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-     backgroundColor: Colors.black,
+      backgroundColor: Colors.black,
       body: ColoredBox(
         color: Color.fromRGBO(255, 0, 0, 1),
         child: Column(
@@ -16,9 +16,22 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 255 , 255),
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
+            TextField(
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              decoration: InputDecoration(
+                label: Text(
+                  "Please enter a amount in INR",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

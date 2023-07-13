@@ -14,6 +14,12 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+         backgroundColor: Colors.black,
+         title: const Text("Currency  Converter"),
+         elevation: 0,
+         centerTitle: true,
+      ),
       body: ColoredBox(
         color: const Color.fromRGBO(255, 0, 0, 1),
         child: Column(
@@ -48,7 +54,21 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
                   decimal: true,
                 ),
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextButton(
+                onPressed: () {
+                  debugPrint('Button click');
+                },
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                    foregroundColor: MaterialStatePropertyAll(Colors.white),
+                    minimumSize:
+                        MaterialStatePropertyAll(Size(double.infinity, 50))),
+                child: const Text("Convert"),
+              ),
+            ),
           ],
         ),
       ),

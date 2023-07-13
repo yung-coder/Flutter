@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 
-class CurrencyConverterMaterialPage extends StatelessWidget {
-  const CurrencyConverterMaterialPage({super.key});
+class CurrencyConverterPage extends StatefulWidget {
+  const CurrencyConverterPage({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _CurrencyConverterPageState createState() => _CurrencyConverterPageState();
+}
+
+class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
+  double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
+
+  void convert() {
+    result = double.parse(textEditingController.text) * 81;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -15,19 +30,19 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-         backgroundColor: Colors.black,
-         title: const Text("Currency  Converter"),
-         elevation: 0,
-         centerTitle: true,
+        backgroundColor: Colors.black,
+        title: const Text("Currency  Converter"),
+        elevation: 0,
+        centerTitle: true,
       ),
       body: ColoredBox(
         color: const Color.fromRGBO(255, 0, 0, 1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '0',
-              style: TextStyle(
+            Text(
+              result.toString(),
+              style: const TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 255, 255, 255),
@@ -36,6 +51,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextField(
+                controller: textEditingController,
                 style: const TextStyle(
                   color: Colors.black,
                 ),
@@ -58,9 +74,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextButton(
-                onPressed: () {
-                  debugPrint('Button click');
-                },
+                onPressed: convert,
                 style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.black),
                     foregroundColor: MaterialStatePropertyAll(Colors.white),

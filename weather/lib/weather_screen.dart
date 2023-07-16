@@ -90,11 +90,31 @@ class WeatherScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Forcast(),
-                  Forcast(),
-                  Forcast(),
-                  Forcast(),
-                  Forcast(),
+                  Forcast(
+                    time: '00.00',
+                    icon: Icons.cloud,
+                    tempearture: '31',
+                  ),
+                  Forcast(
+                    time: '00.03',
+                    icon: Icons.sunny,
+                    tempearture: '45',
+                  ),
+                  Forcast(
+                    time: '00.04',
+                    icon: Icons.cloud,
+                    tempearture: '31',
+                  ),
+                  Forcast(
+                    time: '00.05',
+                    icon: Icons.sunny,
+                    tempearture: '31',
+                  ),
+                  Forcast(
+                    time: '00.06',
+                    icon: Icons.cloud,
+                    tempearture: '31',
+                  ),
                 ],
               ),
             ),
@@ -110,9 +130,21 @@ class WeatherScreen extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Additional(),
-                Additional(),
-                Additional(),
+                Additional(
+                  icon: Icons.water_drop,
+                  label: "Humidity",
+                  value: '91',
+                ),
+                Additional(
+                  icon: Icons.air,
+                  label: "WindSpeed",
+                  value: '7.5',
+                ),
+                Additional(
+                  icon: Icons.beach_access,
+                  label: "Pressure",
+                  value: '1000',
+                ),
               ],
             )
           ],

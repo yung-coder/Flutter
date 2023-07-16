@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Forcast extends StatelessWidget {
+  final String time;
+  final String tempearture;
+  final IconData icon;
   const Forcast({
     super.key,
+    required this.time,
+    required this.tempearture,
+    required this.icon,
   });
 
   @override
@@ -15,27 +21,27 @@ class Forcast extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Column(
+        child: Column(
           children: [
             Text(
-              "03:00",
-              style: TextStyle(
+              time,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Icon(
-              Icons.cloud,
+              icon,
               size: 32,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              "320.12",
+              tempearture,
             ),
           ],
         ),

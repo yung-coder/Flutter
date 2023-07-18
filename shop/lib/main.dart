@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home:  const HomePage(),
+      home: const HomePage(),
     );
   }
 }
